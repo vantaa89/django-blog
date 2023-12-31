@@ -1,0 +1,105 @@
+:root {
+    --main-theme-color: #499fc8;
+}
+
+/* 상단 프로필 배너 */
+
+#main-profile{
+    display: flex;
+    flex-direction: row;
+}
+
+#main-profile-pic {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    margin-right: 10px;
+}
+
+#main-profile-pic img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+#main-profile #main-short-desc{
+    color: #888;
+}
+
+#main-profile #main-short-intro{
+    color: #888;
+}
+
+#main-profile #main-social-icons{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#main-profile #main-social-icons .social-icon{
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    background-color: #EEE;
+    border: none;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#main-profile #main-social-icons .social-icon:hover{
+    background-color: #CCC;
+    cursor: grab;
+}
+
+#main-profile #main-social-icons .social-icon img{
+    display: block;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+}
+
+/* 소개글 */
+
+#main-intro a {
+    text-decoration: none;
+    color: var(--main-theme-color);
+}
+
+#main-intro a:hover{
+    text-decoration: underline;
+}
+
+/* 최근 작성글 */
+#main-recent-posts{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    
+}
+
+.post-card{
+    width: 100%;
+    padding-right: 10px;
+}
+
+.post-card .post-title{
+    margin: 5px 0 0 0;
+    font-weight: 600;
+}
+
+.post-card .post-date{
+    font-size: small;
+    color: #AAA;
+}
+
+.post-card-image {
+    width: 100%;
+    height: max(200px, 20vw);
+    overflow: hidden;
+}
+
+.post-card-image img {
+    width: 100%;
+    height: max(200px, 20vw);
+    object-fit: cover; /* This will crop and center the image */
+}

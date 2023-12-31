@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load markdown_extras %}
+{% load static %}
+
+{% block content %}
+<div class="container my-3" id="main">
+    <div id="main-profile" class="my-3">
+        <div id="main-profile-pic">
+            <img src="{{post.image.url}}">
+        </div>
+        <span>
+            <h2>Seojune Lee</h2>
+            <h6 id="main-short-desc">EECS Undergrad at Seoul National Univ. </h6>
+            <div id="main-social-icons">
+                <a class="social-icon" href="https://www.linkedin.com/in/leeseojune/">
+                    <img src="{% static 'icons/linkedin.svg' %}">
+                </a>
+                <a class="social-icon" href="https://www.instagram.com/l_seo6/">
+                    <img src="{% static 'icons/instagram.svg' %}">
+                </a>
+                <a class="social-icon" href="https://github.com/vantaa89/">
+                    <img src="{% static 'icons/github.svg' %}">
+                </a>
+                <a class="social-icon" href="mailto:leeseojune@snu.ac.kr/">
+                    <img src="{% static 'icons/email.png' %}">
+                </a>
+                <a class="social-icon">
+                    <img src="{% static 'icons/resume.png' %}">
+                </a>
+            </div>
+        </span>  
+    </div>
+
+    <div id="main-intro" class="my-3">
+        {{post.content | markdown | safe}}
+    </div>
+
+    <hr/>
+
+    <h3 class="my-3">Recent Posts</h3>
+    <div id="main-recent-posts">
+    {% for p in post_list %}
+        <div class="post-card">
+            <div class="post-card-image">
+                {% if p.image and p.image.size > 0 %}
+                    <img src="{{p.image.url}}"/>
+                {% else %}
+                    <img src="{% static 'placeholder.jpeg' %}"/>
+                {% endif %}
+            </div>
+            
+            <p class="post-title">{{p.title}}</p>
+            <p class="post-date">{{p.created_at.date}}</p>
+        </div>
+    {% endfor %}
+
+    </div>
+
+    <hr/>
+    
+    <h3>Updates </h3>
+
+</div>
+
+
+
+
+{% endblock %}
