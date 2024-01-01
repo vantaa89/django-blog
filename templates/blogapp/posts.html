@@ -1,24 +1,43 @@
 {% extends "base.html" %}
 {% load static %}
+{% load read_time %}
+
+{% block title %}
+Posts
+{% endblock %}
+
 {% block content %}
 <div class="container py-3">
-    {% for p in post_list %}
-        <div class="card my-3">
-            <div class="card-header">
-                <h4 class="card-title"><a href="{% url 'blog:post' p.id %}" style="text-decoration: none;color:black;">{{p.title}}</a></h4>
-            </div>
-            <div class="card-body">
+    <h1>posts</h1>
+
+    <div id="posts">
+        {% for p in post_list %}
+        <div class="post-card">
+            <div class="post-card-image">
                 {% if p.image and p.image.size > 0 %}
                     <img src="{{p.image.url}}"/>
                 {% else %}
                     <img src="{% static 'placeholder.jpeg' %}"/>
                 {% endif %}
             </div>
+            
+            <a href="{% url 'blog:post' p.slug %}" class="post-title">{{p.title}}</a>
+            
+            <p class="post-date">{{p.created_at}} · {{p.content | readtime}}</p>
+            {% for tag in p.tags.all %}
+            <a href="{% url 'blog:tagged' tag.slug %}" class="tag">
+                <img src="{% static 'icons/tag.png' %}" style="height: 12px; width: 12px;">
+                {{ tag }}
+            </a>
+            {% endfor %}
         </div>
-    {% endfor %}
+        <hr/>
+        {% endfor %}
+    </div>
+    
     
     {% if user.is_authenticated %}
-    <button class="btn btn-primary my-3" href="/newpost">New Post</button>
+    <button class="btn btn-primary my-3" href="/posts/new">New Post</button>
     {% endif %}
     
 </div>

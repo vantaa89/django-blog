@@ -1,9 +1,64 @@
 :root {
-    --main-theme-color: #499fc8;
+    --main-theme-color: #3693be;
 }
 
-/* 상단 프로필 배너 */
+/* 제목 강조 효과 */
+h1:first-child{
+    text-align: center;
+    color: var(--main-theme-color);
+    margin: 20px 0 40px 0;
+}
 
+/* post 썸네일 */
+
+.post-card{
+    width: 100%;
+    padding-right: 10px;
+}
+
+.post-card .post-title{
+    margin: 5px 0 0 0;
+    font-weight: 600;
+}
+
+.post-card .post-date{
+    font-size: small;
+    color: #AAA;
+    margin-bottom: 5px;
+}
+
+.post-card-image {
+    width: 100%;
+    height: max(300px, 30vw);
+    overflow: hidden;
+}
+
+.post-card-image img {
+    width: 100%;
+    height: max(300px, 30vw);
+    object-fit: cover; /* This will crop and center the image */
+}
+
+.tag {
+    font-size: smaller;
+    color: #555;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background-color: #EEE;
+    margin-right: 5px;
+}
+
+.tag:hover{
+    background-color: #CCC;
+}
+
+code{
+    color: var(--main-theme-color);
+}
+
+
+/* 상단 프로필 배너 */
 #main-profile{
     display: flex;
     flex-direction: row;
@@ -77,29 +132,86 @@
     
 }
 
-.post-card{
+#main-post .post-card-image {
     width: 100%;
-    padding-right: 10px;
-}
-
-.post-card .post-title{
-    margin: 5px 0 0 0;
-    font-weight: 600;
-}
-
-.post-card .post-date{
-    font-size: small;
-    color: #AAA;
-}
-
-.post-card-image {
-    width: 100%;
-    height: max(200px, 20vw);
+    height: max(300px, 30vw);
     overflow: hidden;
 }
 
-.post-card-image img {
+#main-post .post-card-image img {
     width: 100%;
-    height: max(200px, 20vw);
+    height: max(300px, 30vw);
     object-fit: cover; /* This will crop and center the image */
+}
+
+
+#main-news .news-date{
+    color: var(--main-theme-color);
+}
+
+/* about 페이지 */
+
+#about h3 {
+    color: var(--main-theme-color);
+}
+
+/* posts 페이지 */
+
+#posts {
+    margin-left: 10%;
+    width: 80%;
+}
+
+.post-title{
+    color: black;
+    font-size:larger;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.post-title:hover{
+    text-decoration: underline;
+}
+
+#posts hr{
+    margin: 20px 0;
+}
+
+
+/* 개별 post 페이지 */
+.post-detail-header{
+    margin-bottom: 20px;
+}
+
+.post-detail-header p{
+    font-size: small;
+    color: #AAA;
+    margin-top: -5px;
+    margin-bottom: 5px;
+}
+
+.post-detail-header .tag{
+    margin-top: 0;
+}
+
+/* new post 페이지 */
+#PostForm input, textarea{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;
+}
+
+#PostForm #id_title{
+    border: none;
+    margin: 0 10px;
+    height: 40px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+#PostForm #submit-button{
+    background-color: #EEE;
+    color: #444;
+    border-radius: 5px;
 }

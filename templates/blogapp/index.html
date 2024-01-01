@@ -49,7 +49,7 @@
                 {% endif %}
             </div>
             
-            <p class="post-title">{{p.title}}</p>
+            <a href="{% url 'blog:post' p.slug %}" class="post-title">{{p.title}}</a>
             <p class="post-date">{{p.created_at.date}}</p>
         </div>
     {% endfor %}
@@ -59,7 +59,19 @@
     <hr/>
     
     <h3>Updates </h3>
-
+    
+    <div id="main-news">
+        {% for news in news_list %}    
+        <div class="news-entry row">
+            <div class="news-date col-sm-4 col-md-2">
+                <p>{{news.time}}</p>
+            </div>
+            <div class="col-sm-8 col-md-10">
+                <p>{{news.content}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
 

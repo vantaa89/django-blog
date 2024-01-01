@@ -1,13 +1,25 @@
 {% extends "base.html" %}
 {% load markdown_extras %}
+{% load read_time %}
+{% load static %}
 
 {% block title %}
 {{post.title}}
 {% endblock %}
 
 {% block content %}
-<div class="container py-3">
-    <h2>{{post.title}}</h2>
+
+<div class="container py-3 post-detail">
+    <div class="post-detail-header">
+        <h2>{{post.title}}</h2>
+        <p>{{post.created_at}} · {{post.content | readtime}}</p>
+        {% for tag in post.tags.all %}
+        <a href="{% url 'blog:tagged' tag.slug %}" class="tag">
+            <img src="{% static 'icons/tag.png' %}" style="height: 12px; width: 12px;">
+            {{ tag }}
+        </a>
+        {% endfor %}
+    </div>
     {{post.content | markdown | safe}}
 </div>
 {% endblock %}

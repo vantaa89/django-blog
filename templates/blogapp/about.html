@@ -1,7 +1,10 @@
 {% extends "base.html" %}
+{% load markdown_extras %}
+
 
 {% block content %}
-<div class="container py-3">
-    <h1>Test Text</h1>
+<div class="container py-3" id="about">
+    <h1 class="mb-3">about</h1>
+    {{post.content | markdown | safe}}
 </div>
 {% endblock %}

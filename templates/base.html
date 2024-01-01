@@ -53,4 +53,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     
     <link href="{% static 'style.css' %}" rel="stylesheet">
+    <!-- syntax highlighting -->
+    <link href="{% static 'code_style.css' %}" rel="stylesheet" type="text/css">
+
+    <script>
+        // Math formula support
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)'], ['\(', '\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
 </html>
