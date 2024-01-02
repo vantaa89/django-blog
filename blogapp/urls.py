@@ -26,7 +26,8 @@ urlpatterns = [
     path('about/', about_view, name="about"),
     path('posts/', PostList.as_view(), name="posts"),
     path('posts/new/', PostCreateView.as_view(), name="new_post"),
-    # path('post/<int:pk>', PostView.as_view(), name="post"),
     path('post/<slug:slug>', PostView.as_view(), name="post"),
+    path('post/<slug:slug>/delete/', delete_post, name="delete_post"),
     path('tags/<slug:slug>', tagged, name="tagged"),
+    path('images/', upload_images, name="upload_images"),
 ]

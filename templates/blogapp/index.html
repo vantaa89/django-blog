@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% load markdown_extras %}
 {% load static %}
+{% load read_time%}
+{% load thumbnail %}
+
 
 {% block content %}
 <div class="container my-3" id="main">
     <div id="main-profile" class="my-3">
         <div id="main-profile-pic">
-            <img src="{{post.image.url}}">
+            <img src="{% static 'profile_pic.jpeg' %}">
         </div>
         <span>
             <h2>Seojune Lee</h2>
@@ -41,16 +44,19 @@
     <div id="main-recent-posts">
     {% for p in post_list %}
         <div class="post-card">
-            <div class="post-card-image">
-                {% if p.image and p.image.size > 0 %}
-                    <img src="{{p.image.url}}"/>
-                {% else %}
-                    <img src="{% static 'placeholder.jpeg' %}"/>
-                {% endif %}
-            </div>
-            
+            <a href="{% url 'blog:post' p.slug %}">
+                <div class="post-card-image">
+                    <img src="{{p.content | thumbnail}}"/>
+                </div>
+            </a>
             <a href="{% url 'blog:post' p.slug %}" class="post-title">{{p.title}}</a>
-            <p class="post-date">{{p.created_at.date}}</p>
+            <p class="post-time">{{post.created_at}} · {{post.content | readtime}}</p>
+            {% for tag in p.tags.all %}
+            <a href="{% url 'blog:tagged' tag.slug %}" class="tag">
+                <img src="{% static 'icons/tag.png' %}" style="height: 12px; width: 12px;">
+                {{ tag }}
+            </a>
+            {% endfor %}
         </div>
     {% endfor %}
 

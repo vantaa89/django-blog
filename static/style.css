@@ -3,7 +3,7 @@
 }
 
 /* 제목 강조 효과 */
-h1:first-child{
+h1:first-child {
     text-align: center;
     color: var(--main-theme-color);
     margin: 20px 0 40px 0;
@@ -11,17 +11,17 @@ h1:first-child{
 
 /* post 썸네일 */
 
-.post-card{
+.post-card {
     width: 100%;
     padding-right: 10px;
 }
 
-.post-card .post-title{
+.post-card .post-title {
     margin: 5px 0 0 0;
     font-weight: 600;
 }
 
-.post-card .post-date{
+.post-card .post-date {
     font-size: small;
     color: #AAA;
     margin-bottom: 5px;
@@ -36,7 +36,8 @@ h1:first-child{
 .post-card-image img {
     width: 100%;
     height: max(300px, 30vw);
-    object-fit: cover; /* This will crop and center the image */
+    object-fit: cover;
+    /* This will crop and center the image */
 }
 
 .tag {
@@ -49,17 +50,12 @@ h1:first-child{
     margin-right: 5px;
 }
 
-.tag:hover{
+.tag:hover {
     background-color: #CCC;
 }
 
-code{
-    color: var(--main-theme-color);
-}
-
-
 /* 상단 프로필 배너 */
-#main-profile{
+#main-profile {
     display: flex;
     flex-direction: row;
 }
@@ -71,27 +67,27 @@ code{
     margin-right: 10px;
 }
 
-#main-profile-pic img{
+#main-profile-pic img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
 
-#main-profile #main-short-desc{
+#main-profile #main-short-desc {
     color: #888;
 }
 
-#main-profile #main-short-intro{
+#main-profile #main-short-intro {
     color: #888;
 }
 
-#main-profile #main-social-icons{
+#main-profile #main-social-icons {
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
 
-#main-profile #main-social-icons .social-icon{
+#main-profile #main-social-icons .social-icon {
     width: 32px;
     height: 32px;
     padding: 6px;
@@ -101,12 +97,12 @@ code{
     overflow: hidden;
 }
 
-#main-profile #main-social-icons .social-icon:hover{
+#main-profile #main-social-icons .social-icon:hover {
     background-color: #CCC;
     cursor: grab;
 }
 
-#main-profile #main-social-icons .social-icon img{
+#main-profile #main-social-icons .social-icon img {
     display: block;
     top: 0;
     width: 20px;
@@ -121,31 +117,36 @@ code{
     color: var(--main-theme-color);
 }
 
-#main-intro a:hover{
+#main-intro a:hover {
     text-decoration: underline;
 }
 
 /* 최근 작성글 */
-#main-recent-posts{
+#main-recent-posts {
     display: grid;
     grid-template-columns: 50% 50%;
-    
+
 }
 
-#main-post .post-card-image {
+#main-recent-posts .post-card{
+    margin-bottom: 20px;
+}
+
+#main-recent-posts .post-card-image {
     width: 100%;
-    height: max(300px, 30vw);
+    height: max(200px, 20vw);  /* main page에서는 이미지를 작게 표시*/
     overflow: hidden;
 }
 
-#main-post .post-card-image img {
+#main-recent-posts .post-card-image img {
     width: 100%;
-    height: max(300px, 30vw);
-    object-fit: cover; /* This will crop and center the image */
+    height: max(200px, 20vw);
+    object-fit: cover;
+    /* This will crop and center the image */
 }
 
 
-#main-news .news-date{
+#main-news .news-date {
     color: var(--main-theme-color);
 }
 
@@ -162,47 +163,79 @@ code{
     width: 80%;
 }
 
-.post-title{
+.post-title {
     color: black;
-    font-size:larger;
+    font-size: larger;
     margin-top: 5px;
     text-decoration: none;
 }
 
-.post-title:hover{
+.post-title:hover {
     text-decoration: underline;
 }
 
-#posts hr{
+#posts hr {
     margin: 20px 0;
 }
 
 
 /* 개별 post 페이지 */
-.post-detail-header{
+.post-detail-header {
     margin-bottom: 20px;
 }
 
-.post-detail-header p{
+.post-time {
     font-size: small;
     color: #AAA;
-    margin-top: -5px;
+    margin-top: 0px;
     margin-bottom: 5px;
 }
 
-.post-detail-header .tag{
+.post-detail-header .tag {
     margin-top: 0;
 }
 
+.post-detail-header #delete-post{
+    color: gray;
+    background-color: inherit;
+    font-weight: normal;
+    margin-left: auto;
+}
+
+.post-detail-header #delete-post:hover{
+    text-decoration: underline;
+}
+
+/* 사진의 폭 통일 */
+
+.post-detail-content img{
+    width: 40%;
+    margin-left: 30%;
+}
+
+.post-detail-content code{
+    background-color: #EEE;
+    color: black;
+    padding: 2px;
+    border-radius: 2px;
+    
+}
+
+.post-detail-content p{
+    line-height: 170%;
+}
+
+
 /* new post 페이지 */
-#PostForm input, textarea{
+#PostForm input,
+textarea {
     width: 100%;
     margin: 0;
     padding: 0;
     border-radius: 2px;
 }
 
-#PostForm #id_title{
+#PostForm #id_title {
     border: none;
     margin: 0 10px;
     height: 40px;
@@ -210,8 +243,13 @@ code{
     font-weight: bold;
 }
 
-#PostForm #submit-button{
+#PostForm #id_content {
+    height: 50vh;
+}
+
+#PostForm #submit-button {
     background-color: #EEE;
     color: #444;
     border-radius: 5px;
+    padding: 5px 15px;
 }

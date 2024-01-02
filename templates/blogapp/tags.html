@@ -2,6 +2,7 @@
 {% load static %}
 {% load markdown_extras %}
 {% load read_time %}
+{% load thumbnail %}
 
 {% block content %}
 <div class="container py-3">
@@ -10,11 +11,7 @@
         {% for p in posts %}
         <div class="post-card">
             <div class="post-card-image">
-                {% if p.image and p.image.size > 0 %}
-                    <img src="{{p.image.url}}"/>
-                {% else %}
-                    <img src="{% static 'placeholder.jpeg' %}"/>
-                {% endif %}
+                <img src="{{p.content | thumbnail}}"/>
             </div>
             
             <a href="{% url 'blog:post' p.slug %}" class="post-title">{{p.title}}</a>

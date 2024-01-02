@@ -11,28 +11,23 @@
         <div class="row my-1">
             <input type="text" id="{{form.title.id_for_label}}" name="{{form.title.name}}" placeholder="Enter the Title" required>    
         </div>
-        <div class="row my-1">
-            <div class="col-sm-3 col-md-2">
-                <label for="{{form.slug.id_for_label}}">Slug</label>
-            </div>
-            <div class="col-sm-9 col-md-10">
-                <input type="text" id="{{form.slug.id}}" name="{{form.slug.name}}">    
-            </div>
-        </div>
-
         <label for="{{form.content.id_for_label}}" class="my-1">Content</label>    
         <div>
-            {{form.content}}    
+            <textarea type="text" id="{{form.content.id_for_label}}" name="{{form.content.name}}" 
+            ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)"
+            required>    </textarea>
         </div>
 
-        <div class="row my-1">
-            <div class="col-sm-3 col-md-2">
-                <label for="{{form.image.id_for_label}}">Image</label>
-            </div>
-            <div class="col-sm-9 col-md-10">
-                {{form.image}}
-            </div>
+        <!-- create_post.html -->
+        <!-- create_post.html -->
+        <!-- <div id="dropArea" style="background-color: gray;" ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
+            Drop image here or
+            <label for="imageInput" style="cursor: pointer;">browse</label>
         </div>
+        <form method="post" enctype="multipart/form-data" id="uploadForm" style="display:none;">
+            {% csrf_token %}
+            <input type="file" id="imageInput" name="images" style="display:none;" onchange="handleFileSelect(event)">
+        </form> -->
 
 
         <div class="row my-1">
@@ -47,4 +42,49 @@
         <button type="submit" id="submit-button">Submit</button>
     </form>
 </div>
+
+
+<script>
+    function handleDragOver(event) {
+        event.preventDefault();
+        
+        // Handle drag over effect if needed
+    }
+
+    function handleFileSelect(event) {
+        event.preventDefault();
+        const files = event.target.files || event.dataTransfer.files;
+        const form = document.getElementById('uploadForm');
+        const formData = new FormData();
+        formData.append('images', files[0])
+        
+        fetch("{% url 'blog:upload_images' %}", {
+            method:'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('File uploaded successfully:' + JSON.stringify(data.files));
+            const contentArea = document.getElementById("id_content");
+            contentArea.value += `![](${data.url})`;
+        })
+        .catch(error => {
+            alert('Error uploading file:', error);
+        });
+    }
+    
+
+    function displayImage(input) {
+        // Display selected image preview
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+</script>
 {% endblock %}

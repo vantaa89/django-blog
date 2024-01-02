@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load read_time %}
+{% load thumbnail %}
 
 {% block title %}
 Posts
@@ -13,17 +14,14 @@ Posts
     <div id="posts">
         {% for p in post_list %}
         <div class="post-card">
-            <div class="post-card-image">
-                {% if p.image and p.image.size > 0 %}
-                    <img src="{{p.image.url}}"/>
-                {% else %}
-                    <img src="{% static 'placeholder.jpeg' %}"/>
-                {% endif %}
-            </div>
-            
+            <a href="{% url 'blog:post' p.slug %}">
+                <div class="post-card-image">
+                    <img src="{{p.content | thumbnail}}"/>
+                </div>
+            </a>
             <a href="{% url 'blog:post' p.slug %}" class="post-title">{{p.title}}</a>
             
-            <p class="post-date">{{p.created_at}} · {{p.content | readtime}}</p>
+            <p class="post-time">{{p.created_at}} · {{p.content | readtime}}</p>
             {% for tag in p.tags.all %}
             <a href="{% url 'blog:tagged' tag.slug %}" class="tag">
                 <img src="{% static 'icons/tag.png' %}" style="height: 12px; width: 12px;">
@@ -37,7 +35,7 @@ Posts
     
     
     {% if user.is_authenticated %}
-    <button class="btn btn-primary my-3" href="/posts/new">New Post</button>
+    <a href="{% url 'blog:new_post' %}"><button class="btn btn-primary my-3">New Post</button></a>
     {% endif %}
     
 </div>
