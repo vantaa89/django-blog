@@ -3,7 +3,7 @@
 }
 
 /* 제목 강조 효과 */
-h1:first-child {
+h1#title {
     text-align: center;
     color: var(--main-theme-color);
     margin: 20px 0 40px 0;
@@ -195,14 +195,15 @@ h1:first-child {
     margin-top: 0;
 }
 
-.post-detail-header #delete-post{
+.post-detail-header .delete-post{
     color: gray;
     background-color: inherit;
     font-weight: normal;
     margin-left: auto;
+    text-decoration: none;
 }
 
-.post-detail-header #delete-post:hover{
+.post-detail-header .delete-post:hover{
     text-decoration: underline;
 }
 

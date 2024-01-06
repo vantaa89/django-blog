@@ -28,6 +28,8 @@ urlpatterns = [
     path('posts/new/', PostCreateView.as_view(), name="new_post"),
     path('post/<slug:slug>', PostView.as_view(), name="post"),
     path('post/<slug:slug>/delete/', delete_post, name="delete_post"),
+    path('post/<slug:slug>/modify/', modify_post, name="modify_post"),
     path('tags/<slug:slug>', tagged, name="tagged"),
     path('images/', upload_images, name="upload_images"),
+    path('markdown_preview/', markdown_preview, name="markdown_preview"),
 ]

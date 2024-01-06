@@ -1,12 +1,16 @@
+from typing import Any
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import *
 from taggit.models import Tag
 from .forms import *
 from django.utils.text import slugify
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+import markdown as md
+import re
 
 # main 페이지
 def main_view(request):
@@ -62,11 +66,10 @@ def tagged(request, slug):
     }
     return render(request, 'blogapp/tags.html', context)
 
-from django.views.generic import CreateView
 
 # new post page
 class PostCreateView(CreateView):
-    template_name = 'blogapp/new_post.html'
+    template_name = 'blogapp/editor.html'
     success_url = '/posts'
     form_class = PostForm
 
@@ -74,8 +77,39 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['new_post'] = True
+        context['post_target'] = reverse('blog:new_post')
+        return context
+    
+
+@login_required
+def modify_post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    if post.author == request.user:
+        if request.method == 'POST':
+            form = PostForm(request.POST, request.FILES, instance=post)
+            if form.is_valid():
+                form.save()
+                return redirect('blog:posts')
+            return redirect('blog:modify_post')
+        else:
+            form = PostForm(instance=post)
+            return render(request,
+                'blogapp/editor.html', 
+                {
+                    'new_post': False, 
+                    'post': post, 
+                    'form': form,
+                    'post_target': reverse('blog:modify_post', args=[post.slug])
+                })
+    return redirect('posts:index')
+
 
 # delete post
+@login_required
 def delete_post(request, slug):
     post = get_object_or_404(Post, slug=slug)  # Get your current post
 
@@ -94,3 +128,19 @@ def upload_images(request):
         return JsonResponse({'message': 'File(s) uploaded successfully', 'files':str(uploaded_file), 'url': image_instance.image.url})
     else:
         return JsonResponse({'message': 'No files received'}, status=400)
+
+
+def markdown_preview(request):
+    if request.method == 'POST':
+        content = request.POST.get('content', '')
+        content = re.sub(r'\$(.*)\$', lambda match: match.group(0).replace('_', '<mathsubscript>'), content)    
+        html_content = md.markdown(content, extensions=[
+            'markdown.extensions.fenced_code',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.nl2br',
+            ])
+        html_content = html_content.replace('<mathsubscript>', '_')
+            
+        return JsonResponse({'success': True, 'html_content': html_content})
+    else:
+        return JsonResponse({'success': False}, status=400)
