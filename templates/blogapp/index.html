@@ -50,7 +50,7 @@
                 </div>
             </a>
             <a href="{% url 'blog:post' p.slug %}" class="post-title">{{p.title}}</a>
-            <p class="post-time">{{post.created_at}} · {{post.content | readtime}}</p>
+            <p class="post-time">{{p.created_at}} · {{p.content | readtime}}</p>
             {% for tag in p.tags.all %}
             <a href="{% url 'blog:tagged' tag.slug %}" class="tag">
                 <img src="{% static 'icons/tag.png' %}" style="height: 12px; width: 12px;">

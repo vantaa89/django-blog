@@ -44,8 +44,7 @@ class PostView(DetailView):
 class PostList(ListView):
     model = Post
     template_name = 'blogapp/posts.html'
-
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         new_context = Post.objects.filter(special_post=False).order_by('-created_at')
@@ -130,19 +129,28 @@ def upload_images(request):
         return JsonResponse({'message': 'No files received'}, status=400)
 
 
+def render_markdown(content):
+    content = re.sub(r'\$(.*)\$', lambda match: match.group(0).replace('_', '<mathsubscript>'), content)    # underbar in math 
+    # content = re.sub(r'_{1,2}(.*?)_{1,2}', lambda match: match.group(0)+" ", content) 
+    content = re.sub(r'(\n[\t\ ]*\*[^\*].*)+', lambda match: "\n"+match.group(0), content)                  # unordered list 앞에는 빈 줄 추가
+    content = re.sub(r'(\n[\t\ ]*\d+\..*)+', lambda match: "\n"+match.group(0), content)                    # ordered list 앞에도 빈 줄 추가
+    
+    html_content = md.markdown(content, extensions=[
+        'markdown.extensions.fenced_code',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.nl2br',
+        'markdown.extensions.sane_lists',
+        'markdown.extensions.footnotes',
+        'markdown.extensions.toc',
+        'markdown.extensions.legacy_em'
+    ])
+    html_content = html_content.replace('<mathsubscript>', '_')
+    return html_content
+
 def markdown_preview(request):
     if request.method == 'POST':
         content = request.POST.get('content', '')
-        content = re.sub(r'\$(.*)\$', lambda match: match.group(0).replace('_', '<mathsubscript>'), content)    
-        html_content = md.markdown(content, extensions=[
-            'markdown.extensions.fenced_code',
-            'markdown.extensions.codehilite',
-            'markdown.extensions.nl2br',
-            'markdown.extensions.sane_lists',
-            'markdown.extensions.footnotes'
-        ])
-        html_content = html_content.replace('<mathsubscript>', '_')
-            
+        html_content = render_markdown(content)
         return JsonResponse({'success': True, 'html_content': html_content})
     else:
         return JsonResponse({'success': False}, status=400)

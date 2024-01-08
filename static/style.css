@@ -254,3 +254,13 @@ textarea {
     border-radius: 5px;
     padding: 5px 15px;
 }
+
+.pagination a{
+    color: var(--main-theme-color);
+}
+
+.pagination li.active a{
+    border-color: var(--main-theme-color);
+    background-color: var(--main-theme-color);
+}
+
