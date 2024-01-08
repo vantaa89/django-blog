@@ -15,6 +15,9 @@ def markdown(content):
         'markdown.extensions.fenced_code',
         'markdown.extensions.codehilite',
         'markdown.extensions.nl2br',
-        ])
+        'markdown.extensions.sane_lists',
+        'markdown.extensions.footnotes',
+        'markdown.extensions.toc'
+    ])
     html_content = html_content.replace('<mathsubscript>', '_')
     return html_content

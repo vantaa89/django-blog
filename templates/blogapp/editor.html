@@ -86,9 +86,8 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data.html_content);
+            // console.log(data.html_content);
             previewArea.innerHTML = data.html_content;
-            // 서버네어 markdown -> HTML 변환 후 다시 수식 포매팅
             renderMathInElement(previewArea, {
                 // customised options
                 // • auto-render specific keys, e.g.:

@@ -138,7 +138,9 @@ def markdown_preview(request):
             'markdown.extensions.fenced_code',
             'markdown.extensions.codehilite',
             'markdown.extensions.nl2br',
-            ])
+            'markdown.extensions.sane_lists',
+            'markdown.extensions.footnotes'
+        ])
         html_content = html_content.replace('<mathsubscript>', '_')
             
         return JsonResponse({'success': True, 'html_content': html_content})
