@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-*b@2%uui+4zt0-og&h$facu8@64g++fogeyh=-u@+is3xg=k-0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["3.34.194.140", "seojune.site"]
 
 
 # Application definition
@@ -136,3 +136,7 @@ LOGOUT_REDIRECT_URL = "/"
 import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
